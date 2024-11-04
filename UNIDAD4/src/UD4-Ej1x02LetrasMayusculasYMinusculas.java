@@ -1,9 +1,12 @@
-import java.util.Scanner;
+package Ej1x02;
+
+import entrada.Teclado;
 
 public class Ej1x02 {
 
     public static boolean esLetraMayusucla(char c){
         return c >= 65 && c <= 90;
+        //return ((c >= 'A' && c <= 'Z') || (c == 'Ñ'));
     }
 
     public static boolean esLetraMinucla(char c){
@@ -11,10 +14,7 @@ public class Ej1x02 {
     }
 
     public static void main(String[] args) {
-        Scanner telcado = new Scanner(System.in);
-
-        System.out.print("Caracter:");
-        char c = telcado.next().charAt(0);
+        char c = Teclado.leerCaracter("Introduce un caracter:");
 
         if (esLetraMayusucla(c)){
             System.out.printf("El caracter %c es una letra mayuscula", c);

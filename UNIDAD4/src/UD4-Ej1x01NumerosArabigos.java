@@ -1,16 +1,18 @@
+package Ej1x01;
+
 import java.util.Scanner;
+
+import entrada.Teclado;
 
 public class Ej1x01 {
 
     public static boolean esNumeroArabigo (char c){
         return c >= 48 && c <= 57;
+        //return (c >= '0' && c <= '9')
     }
 
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-
-        System.out.println("Caracter?");
-        char c = teclado.next().charAt(0);
+        char c = Teclado.leerCaracter("¿Caracter?");
 
         if (esNumeroArabigo(c)){
             System.out.printf("El caracter %c es un numero arabigo", c);

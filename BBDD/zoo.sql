@@ -145,6 +145,10 @@ AND descripcion LIKE 'S%';
 
 --3. Devuelve el listado de los cuidadores y los animales. Se debe mostrar el id y nombre de empleado, la especie 
 --(nombre común) y el nombre del animal.
+SELECT empleados.id_empleado, empleados.nombre, especies.nombre_comun, animales.nombre_pila
+FROM empleados
+JOIN animales ON empleados.id_empleado = animales.id_cuidador
+JOIN especies ON animales.id_especie = especies.id_especie;
 
 
 --4. Muestra un listado con la medicación que toma cada animal. Se debe mostrar en nombre de pila del animal y 
@@ -168,6 +172,12 @@ FROM productos JOIN proveedores USING (id_proveedor);
 
 --8. Devuelve un listado de empleados que no cuidan de ningún animal y donde están ubicados. Muestra id, 
 --nombre y descripción de la ubicación.
+SELECT empleados.id_empleado, empleados.nombre, ubicacion.descripcion AS ubicacion
+FROM empleados 
+LEFT JOIN animales ON empleados.id_empleado = animales.id_cuidador
+JOIN ubicaciones ON empleados.ubicacion = ubicacion.id_ubicacion
+WHERE animales.id_cuidador IS NULL;
+
 
 
 --9. Devuelve el nombre y la fecha de nacimiento de la hembra animal más joven.
@@ -175,3 +185,9 @@ SELECT nombre, nacimiento
 FROM animales JOIN manimales ON (animales.nacimiento = manimales.fecha_nacimiento)
 WHERE sexo = 'Hembra'
 ORDER BY fecha_nacimiento DESC;
+
+--10. Devuelve un listado con los empleados y el número de animales que cuida. Muestra el id y nombre de 
+--empleado, descripción de la ubicación y una columna que se llame CANT que refleje la cantidad de animales 
+--que cuida. Se deben mostrar los empleados que tengan cero animales a su cargo también. Ordenar por id de 
+--empleado ascendente y ubicación descendente.
+

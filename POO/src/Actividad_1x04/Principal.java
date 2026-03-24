@@ -1,10 +1,8 @@
 package Actividad_1x04;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import entrada.Teclado;
 
@@ -14,9 +12,11 @@ public class Principal {
 		int opcion;
 
 		System.out.println("0) Salir del programa");
-		System.out.println("1) Creacion del hormiguero");
-		System.out.println("2) Añadir una hormiga");
-		System.out.println("3) Sacar hormigas a por comida");
+		System.out.println("1) Insertar un empleado en el fichero de texto");
+		System.out.println("2) Consultar todos los empleados del fichero de texto");
+		System.out.println("3) Consultar un empleado, por codigo, del fichero de texto");
+		System.out.println("4) Actualizar un empleado, por codigo, del fichero de texto");
+		System.out.println("5) Elimiar un empleado, por codigo, del fichero de texto");
 		opcion = Teclado.leerEntero("Elige una opcion:");
 		System.out.println();
 
@@ -26,24 +26,99 @@ public class Principal {
 	public static void main(String[] args) {
 
 		int opcion;
+		GestorFicheroEmpleados gfe = new GestorFicheroEmpleados("path");
 
 		do {
 
 			opcion = escribirMenuOpciones();
 			try {
 				switch (opcion) {
-				case 0:
-					System.out.println("Saliendo del programa...");
+					case 0:
+						System.out.println("Saliendo del programa...");
+					case 1:
+						int codigo1 = Teclado.leerEntero("Codigo de empleado: ");
 
-				case 1:
+						Empleado e1 = gfe.buscar(codigo1);
+						if(e1 != null){
+							System.out.println("Ya existe otro empleado con ese codigo en el fichero de texto");
+						}else{
+							Empleado e2 = new Empleado(
+									codigo1,
+									Teclado.leerCadena("Nombre del empleado: "),
+									Teclado.leerCadena("Fecha de nacimiento: "),
+									Teclado.leerEntero("Numero de departamento: "),
+									Teclado.leerReal("Salario del empleado")
+							);
+							gfe.insertar(e2);
+
+							System.out.println("Se ha insertado en el fichero de texto a un nuevo empleado con codigo: " + codigo1);
+						}
+					case 2:
+						List<Empleado> listaEmpleados = gfe.listar();
+
+						if(listaEmpleados.isEmpty()){
+							System.out.println("El fichero de texto está vacío");
+						}else{
+ 							for(Empleado e : listaEmpleados){
+								System.out.println(e);
+							}
+						}
+
+					case 3:
+
+						int codigo3 = Teclado.leerEntero("¿Codigo de empelado?");
+
+						Empleado e3 = gfe.buscar(codigo3);
+
+						if(e3 == null){
+							System.out.println("No existe ningún empleado con ese código en el fichero de texto. ");
+						} else{
+							System.out.println(e3);
+						}
+
+					case 4:
+						/*
+						int codigo4 = Teclado.leerEntero("¿Codigo de empleado?");
+						Empleado e4 = gfe.buscar(codigo4);
+
+						if(e4 == null){
+							System.out.println("No existe ningún empleado con ese código en el fichero de texto. ");
+						}else{
+							int n_dep4 = Teclado.leerEntero("¿Nuevo numero de departemento?");
+							double salario4 = Teclado.leerReal("¿Nuevo salario?");
+							e4.setN_departamento(n_dep4);
+							e4.setSalario(salario4);
+
+							System.out.println("Se ha actualizado un empleado del fichero de texto.");
+						}
+						*/
+
+					case 5:
+
+						int codigo5 = Teclado.leerEntero("Codigo de empleado:");
+						Empleado e5 = gfe.buscar(codigo5);
+
+						if(e5 != null){
+							//Si no es nulo, es porque ese codigo existe, hay un empleado con ese codigo
+							//Lo borramos.
+							gfe.borrar(codigo5);
+							System.out.println("Se ha borrado al empleado con codigo: " + codigo5);
+						}else{
+							System.out.println("No existe ningun empleado con ese codigo en el fichero de texto");
+						}
+
+					default:
 
 				}
-				
-			} catch (IOException ioe) {
-				System.out.println( ioe.getMessage());
-				ioe.printStackTrace();
+
+				} catch (IOException ioe) {
+					System.out.println( ioe.getMessage());
+					ioe.printStackTrace();
 			}
 		} while (opcion != 0);
+		if(opcion < 0 || opcion > 5){
+			System.out.println("La opción de menú debe estar comprendida entre 0 y 5");
+		}
 
 	}
 

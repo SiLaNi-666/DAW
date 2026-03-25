@@ -1,7 +1,4 @@
-package Actividad_1x04;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import entrada.Teclado;
@@ -26,7 +23,13 @@ public class Principal {
 	public static void main(String[] args) {
 
 		int opcion;
-		GestorFicheroEmpleados gfe = new GestorFicheroEmpleados("path");
+		GestorFicheroEmpleados gfe = new GestorFicheroEmpleados("prueba/empleados.csv");
+		int codigo;
+		String nombre;
+		String fecha;
+		String departamento;
+		double salario;
+
 
 		do {
 
@@ -36,23 +39,23 @@ public class Principal {
 					case 0:
 						System.out.println("Saliendo del programa...");
 					case 1:
-						int codigo1 = Teclado.leerEntero("Codigo de empleado: ");
+						codigo = Teclado.leerEntero("Codigo de empleado: ");
 
-						Empleado e1 = gfe.buscar(codigo1);
+						Empleado e1 = gfe.buscar(codigo);
 						if(e1 != null){
 							System.out.println("Ya existe otro empleado con ese codigo en el fichero de texto");
-						}else{
-							Empleado e2 = new Empleado(
-									codigo1,
-									Teclado.leerCadena("Nombre del empleado: "),
-									Teclado.leerCadena("Fecha de nacimiento: "),
-									Teclado.leerEntero("Numero de departamento: "),
-									Teclado.leerReal("Salario del empleado")
-							);
-							gfe.insertar(e2);
-
-							System.out.println("Se ha insertado en el fichero de texto a un nuevo empleado con codigo: " + codigo1);
 						}
+
+						nombre = Teclado.leerCadena("Nombre del empleado:");
+						fecha = Teclado.leerCadena("Fecha de nacimiento: ");
+						departamento = Teclado.leerCadena("Numero de departamento: ");
+						salario = Teclado.leerReal("Salario del empleado");
+
+						e1 = new Empleado(codigo, nombre, fecha, departamento, salario);
+						gfe.insertar(e1);
+
+						System.out.println("Se ha insertado en el fichero de texto a un nuevo empleado con codigo: " + codigo);
+
 					case 2:
 						List<Empleado> listaEmpleados = gfe.listar();
 
@@ -66,9 +69,9 @@ public class Principal {
 
 					case 3:
 
-						int codigo3 = Teclado.leerEntero("¿Codigo de empelado?");
+						codigo= Teclado.leerEntero("¿Codigo de empelado?");
 
-						Empleado e3 = gfe.buscar(codigo3);
+						Empleado e3 = gfe.buscar(codigo);
 
 						if(e3 == null){
 							System.out.println("No existe ningún empleado con ese código en el fichero de texto. ");
@@ -77,9 +80,9 @@ public class Principal {
 						}
 
 					case 4:
-						/*
-						int codigo4 = Teclado.leerEntero("¿Codigo de empleado?");
-						Empleado e4 = gfe.buscar(codigo4);
+
+						codigo = Teclado.leerEntero("¿Codigo de empleado?");
+						Empleado e4 = gfe.buscar(codigo);
 
 						if(e4 == null){
 							System.out.println("No existe ningún empleado con ese código en el fichero de texto. ");
@@ -91,21 +94,25 @@ public class Principal {
 
 							System.out.println("Se ha actualizado un empleado del fichero de texto.");
 						}
-						*/
 
 					case 5:
 
-						int codigo5 = Teclado.leerEntero("Codigo de empleado:");
-						Empleado e5 = gfe.buscar(codigo5);
+
+						codigo = Teclado.leerEntero("Codigo de empleado:");
+						Empleado e5 = gfe.buscar(codigo);
 
 						if(e5 != null){
 							//Si no es nulo, es porque ese codigo existe, hay un empleado con ese codigo
 							//Lo borramos.
-							gfe.borrar(codigo5);
-							System.out.println("Se ha borrado al empleado con codigo: " + codigo5);
+							gfe.borrar(codigo);
+							System.out.println("Se ha borrado al empleado con codigo: " + codigo);
 						}else{
 							System.out.println("No existe ningun empleado con ese codigo en el fichero de texto");
 						}
+
+						//Hacer una unica pasada al fichero, no 2.
+						
+
 
 					default:
 

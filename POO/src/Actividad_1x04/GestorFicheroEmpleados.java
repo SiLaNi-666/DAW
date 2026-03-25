@@ -1,5 +1,3 @@
-package Actividad_1x04;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,6 +15,17 @@ public class GestorFicheroEmpleados {
 		this.path = path;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	@Override
+	public String toString() {
+		return "GestorFicheroEmpleados{" +
+				"path='" + path + '\'' +
+				'}';
+	}
+
 	/**
 	 * Inserta un empleado precodicion: el empleado no existe en el fichero
 	 * 
@@ -24,7 +33,6 @@ public class GestorFicheroEmpleados {
 	 * @return
 	 * @throws IOException
 	 */
-
 	public boolean insertar(Empleado empleado) throws IOException {
 
 		BufferedWriter bw = null;
@@ -79,9 +87,7 @@ public class GestorFicheroEmpleados {
 					bw.newLine();
 					return true;
 				}
-
 			}
-
 		} finally {
 			// Cierra el fichero
 			if (br != null) {

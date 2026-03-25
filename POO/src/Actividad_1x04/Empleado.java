@@ -1,18 +1,17 @@
-package Actividad_1x04;
-
 public class Empleado {
 
+	private static String SEPARADOR = ";";
 	private int codigo;
 	private String nombre;
 	private String fechaNac;
-	private int n_departamento;
+	private String departamento;
 	private double salario;
 
-	public Empleado(int codigo, String nombre, String fechaNac, int n_departamento, double salario) {
+	public Empleado(int codigo, String nombre, String fechaNac, String departamento, double salario) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.fechaNac = fechaNac;
-		this.n_departamento = n_departamento;
+		this.departamento = departamento;
 		this.salario = salario;
 	}
 
@@ -21,8 +20,12 @@ public class Empleado {
 		this.codigo = Integer.parseInt(parte[0]);
 		this.nombre = parte[1];
 		this.fechaNac = parte[2];
-		this.n_departamento = Integer.parseInt(parte[3]);
+		this.departamento = (parte[3]);
 		this.salario = Double.parseDouble(parte[4]);
+
+		if(parte.length < 4 || parte.length > 4){
+
+		}
 	}
 
 	public int getCodigo() {
@@ -49,12 +52,12 @@ public class Empleado {
 		this.fechaNac = fechaNac;
 	}
 
-	public int getN_departamento() {
-		return n_departamento;
+	public String getN_departamento() {
+		return departamento;
 	}
 
 	public void setN_departamento(int n_departamento) {
-		this.n_departamento = n_departamento;
+		this.departamento = departamento;
 	}
 
 	public double getSalario() {
@@ -68,11 +71,11 @@ public class Empleado {
 	@Override
 	public String toString() {
 		return "Empleado [codigo=" + codigo + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", n_departamento="
-				+ n_departamento + ", salario=" + String.format("%.2f", salario) + "]";
+				+ departamento + ", salario=" + String.format("%.2f", salario) + "]";
 	}
 
 	public String toStringWithSeparators() {
-		return codigo + ";" + nombre + ";" + fechaNac + ";" + n_departamento + ";" + String.format("$.2f", salario);
+		return codigo + ";" + nombre + ";" + fechaNac + ";" + departamento + ";" + String.format("$.2f", salario);
 	}
 
 }
